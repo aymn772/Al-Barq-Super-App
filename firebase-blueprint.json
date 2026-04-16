@@ -1,0 +1,97 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user profile",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Display name" },
+        "email": { "type": "string", "format": "email", "description": "User email" },
+        "phone": { "type": "string", "description": "User phone number" },
+        "role": { "type": "string", "enum": ["super_admin", "admin", "user", "driver"], "description": "User role" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "email", "role"]
+    },
+    "Store": {
+      "title": "Store",
+      "description": "A business entity (Restaurant, Pharmacy, Grocery, or Express)",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the store" },
+        "category": { "type": "string", "enum": ["restaurant", "pharmacy", "grocery", "express"], "description": "Category of the store" },
+        "image": { "type": "string", "description": "URL of the store image" },
+        "status": { "type": "string", "enum": ["active", "inactive"], "description": "Store status" },
+        "rating": { "type": "number", "description": "User rating" },
+        "deliveryTime": { "type": "string", "description": "Estimated delivery time" },
+        "active": { "type": "boolean", "description": "Whether the store is currently open" }
+      },
+      "required": ["name", "category", "status"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "An item sold by a store",
+      "type": "object",
+      "properties": {
+        "storeId": { "type": "string", "description": "ID of the parent store" },
+        "name": { "type": "string", "description": "Name of the item" },
+        "price": { "type": "number", "description": "Price in YER" },
+        "image": { "type": "string", "description": "URL of the product image" },
+        "description": { "type": "string", "description": "Detailed description" },
+        "category": { "type": "string", "description": "Category (e.g., Vegetables, Antibiotics)" },
+        "weight": { "type": "string", "description": "Weight or volume (for groceries)" },
+        "requiresPrescription": { "type": "boolean", "description": "Whether a medical prescription is needed" }
+      },
+      "required": ["storeId", "name", "price"]
+    },
+    "Wallet": {
+      "title": "Wallet",
+      "description": "A digital wallet for payments",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Wallet provider name" },
+        "pointNumber": { "type": "string", "description": "Wallet number or ID" },
+        "qrCode": { "type": "string", "description": "URL to QR code image" }
+      },
+      "required": ["name", "pointNumber"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A delivery order",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "ID of the customer" },
+        "customerName": { "type": "string", "description": "Name of the customer" },
+        "totalPrice": { "type": "number", "description": "Total order amount" },
+        "status": { "type": "string", "enum": ["pending", "preparing", "delivering", "completed", "cancelled"] },
+        "paymentMethod": { "type": "string", "enum": ["cash", "wallet"] },
+        "walletId": { "type": "string", "description": "ID of the wallet used" },
+        "items": { "type": "array", "description": "List of items" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "customerName", "totalPrice", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/stores/{storeId}": {
+      "schema": "Store",
+      "description": "Collection of all stores"
+    },
+    "/stores/{storeId}/products/{productId}": {
+      "schema": "Product",
+      "description": "Sub-collection of products for a store"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection of orders"
+    },
+    "/wallets/{walletId}": {
+      "schema": "Wallet",
+      "description": "Collection of payment wallets"
+    }
+  }
+}

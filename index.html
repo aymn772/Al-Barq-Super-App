@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#0057FF" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <title>البرق للتوصيل | Al-Barq Delivery</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Splash Screen -->
+    <div id="splash-screen" style="position: fixed; inset: 0; background: #0057FF; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease-out;">
+      <div style="width: 120px; height: 120px; background: white; border-radius: 30px; display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); margin-bottom: 24px;">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#0057FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#0057FF"/>
+        </svg>
+      </div>
+      <h1 style="color: white; font-family: sans-serif; font-weight: 900; font-style: italic; font-size: 32px; letter-spacing: -1px;">البرق للتوصيل</h1>
+      <div style="margin-top: 40px; width: 40px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden;">
+        <div style="width: 100%; height: 100%; background: white; animation: loading 2s infinite ease-in-out;"></div>
+      </div>
+      <style>
+        @keyframes loading {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+      </style>
+    </div>
+
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Service Worker Cleanup
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+
+      const removeSplash = () => {
+        const splash = document.getElementById('splash-screen');
+        if (splash) {
+          splash.style.opacity = '0';
+          setTimeout(() => splash.remove(), 500);
+        }
+      };
+      window.addEventListener('load', removeSplash);
+      // Fallback: remove splash after 5 seconds anyway
+      setTimeout(removeSplash, 5000);
+    </script>
+  </body>
+</html>
+

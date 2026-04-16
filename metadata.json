@@ -1,0 +1,9 @@
+{
+  "name": "البرق للتوصيل | Al-Barq Delivery",
+  "description": "A high-performance full-stack delivery application with a modern Arabic design system.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "y7": [],
+  "Yp": []
+}

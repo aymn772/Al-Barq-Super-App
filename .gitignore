@@ -1,0 +1,43 @@
+# الأساسيات - ملفات بيئة العمل والحماية
+.env
+.env.local
+.env.*.local
+firebase-applet-config.json
+firebase-applet-config.local.json
+
+# مجلدات المكتبات الضخمة (يتم تحميلها تلقائياً)
+node_modules/
+vendor/
+/public/storage
+/storage/*.key
+
+# ملفات التشغيل والـ Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+/storage/logs/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/views/
+
+# ملفات IDE الخاصة بالمطور (VS Code, IntelliJ)
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# ملفات بناء تطبيق Flutter / Android / iOS
+build/
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+ios/Flutter/Generated.framework/
+android/app/src/main/res/values/strings.xml (if contains keys)
+
+# ملفات التوزيع والبناء
+dist/
+/public/hot
+/public/storage
